@@ -47,7 +47,7 @@ function makeCartContent(item) {
 
   cardItemContent.appendChild(description)
   cardItemContent.appendChild(settings)
-  return cardItemContent
+  return cardItemContent;
 }
 
 function makeSettings(item) {

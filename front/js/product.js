@@ -72,7 +72,8 @@ if (bouton != null) {
       alert("Veuillez choisir une couleur et une quantité maximum de 100 unités pour votre commande, Merci.");
       return bouton;
     }
-    let addId = `${id}` +  " : " + quantite + " : " + colors ;
+    // let addId = "id:" + id +  "," + "quantite:" + quantite + "," + "color:" + `${colors}`;
+    let addId =  id +  ","  + quantite +  "," + `${colors}`;
     alert("Article ajouté au panier");
     localStorage.setItem(id, JSON.stringify(addId));
        //redirection vers le pannier
