@@ -9,6 +9,7 @@ fetch("http://localhost:3000/api/products")
 
 
 
+
 function data(array) {
   array.forEach((array) => {
    const balisea =  document.createElement("a");
@@ -32,7 +33,8 @@ function data(array) {
 
 function child(balisea, article, img, h3, p){
   const items = document.querySelector("#items");
-  //  const items = document.getElementById("#items");
+  //const items = document.getElementById("#items");
+  //const items = document.getElementById("items");
   items.appendChild(balisea);
   balisea.appendChild(article);
   article.appendChild(img);
