@@ -1,9 +1,11 @@
 fetch("http://localhost:3000/api/products")
 .then((response) => {
   return response.json();
+    console.log("cons");
 })
 .then((kanap) => {
-  console.log(kanap);
+  // console.log(kanap);
+
   return data(kanap);
 });
 

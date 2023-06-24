@@ -1,3 +1,5 @@
+
+
 const queryString = new URLSearchParams(window.location.search);
 const id = queryString.get("id");
 
@@ -7,7 +9,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
   return response.json();
 })
 .then((kanap) => {
-  console.log(kanap);
+  // console.log(kanap);
   return data(kanap);
 });
 
