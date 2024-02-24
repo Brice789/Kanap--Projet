@@ -1,0 +1,39 @@
+name: Build and Deploy Kanap Project to GitHub Pages
+
+on:
+  push:
+    branches: [ new ]
+  pull_request:
+    branches: [ new ]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16' # Adjust based on your project's requirement
+
+    - name: Install dependencies (if applicable)
+      run: |
+        cd front
+        npm install
+        # Add this if your project requires npm installation for the front end
+
+    # Optional: Add steps for building your project here
+    # - name: Build Project
+    #   run: |
+    #     cd front
+    #     npm run build
+    #     # This assumes you have a build script in your package.json
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./front/html
+        # Specifies the directory where your built HTML files are located
