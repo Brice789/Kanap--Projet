@@ -1,39 +1,47 @@
-name: Build and Deploy Kanap Project to GitHub Pages
+name: Build and Deploy Kanap Project
 
 on:
   push:
-    branches: [ new ]
+    branches: [ "new" ]
   pull_request:
-    branches: [ new ]
+    branches: [ "new" ]
+  workflow_dispatch:
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16' # Adjust based on your project's requirement
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-    - name: Install dependencies (if applicable)
-      run: |
-        cd front
-        npm install
-        # Add this if your project requires npm installation for the front end
+      - name: Install back end dependencies
+        run: npm install
+        working-directory: ./back
+        # Assuming you have a similar structure for the back end
 
-    # Optional: Add steps for building your project here
-    # - name: Build Project
-    #   run: |
-    #     cd front
-    #     npm run build
-    #     # This assumes you have a build script in your package.json
+      - name: Start back end server
+        run: nohup node server > /dev/null 2>&1 &
+        working-directory: ./back
+        # Modify as needed to match your server start command and directory structure
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./front/html
-        # Specifies the directory where your built HTML files are located
+      - name: Install front end dependencies
+        run: npm install
+        working-directory: ./front
+        # This ensures npm install is run in the correct directory
+
+      # Optional: Build front end (if required by your project)
+      # - name: Build front end
+      #   run: npm run build
+      #   working-directory: ./front
+      # Uncomment and modify if your front end requires a build step
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./front/html
